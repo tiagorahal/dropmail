@@ -1,13 +1,14 @@
-import { Button } from "@mui/material";
+import Header from "./components/header";
 
 function App() {
   return (
-    <div className="container m-auto">
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <Button variant="contained">Hello World</Button>
-    </div>
+   <div className="bg-slate-800 p-2">
+      <Header/>
+
+      <body class="bg-slate-200 container m-auto border-solid border-2 rounded-md min-h-[300px] mt-2">
+
+      </body>
+   </div>
   );
 }
 
