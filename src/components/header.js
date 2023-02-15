@@ -1,6 +1,6 @@
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 
-function Header() {
+export default function Header() {
   return (
     <nav class="container m-auto bg-slate-200 border-gray-200 px-2 sm:px-4 py-2.5 rounded-md dark:bg-gray-900">
       <div class="flex flex-wrap items-center justify-between mx-auto">
@@ -21,5 +21,3 @@ function Header() {
     </nav>
   );
 }
-
-export default Header;
