@@ -10,7 +10,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 
 export default function UpperSection() {
   return (
-    <div class="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[300px] mt-2 flex justify-center justify-items-center flex-col">
+    <div class="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[250px] mt-2 flex justify-center justify-items-center flex-col">
       <Paper
         component="form"
         sx={{
