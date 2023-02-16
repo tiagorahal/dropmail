@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -6,9 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/lab/LoadingButton";
-import SyncIcon from '@mui/icons-material/Sync';
+import SyncIcon from "@mui/icons-material/Sync";
 
 export default function UpperSection() {
+  const [text, setText] = useState("");
+
+  const copy = () => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <div class="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[250px] mt-2 flex justify-center justify-items-center flex-col">
       <Paper
@@ -38,10 +44,24 @@ export default function UpperSection() {
           placeholder="Email"
           name="test"
           inputProps={{ "aria-label": "email" }}
+          onChange={(e) => setText(e.target.value)}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} aria-label="directions">
+        <IconButton
+          color="primary"
+          sx={{ p: "10px" }}
+          aria-label="directions"
+          onClick={copy}
+        >
           <ContentCopyIcon sx={{ color: "black" }} />
+          <Typography
+            fontSize="large"
+            sx={{
+              color: "gray",
+            }}
+          >
+            Copy
+          </Typography>
         </IconButton>
       </Paper>
 
