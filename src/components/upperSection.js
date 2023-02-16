@@ -60,7 +60,7 @@ export default function UpperSection() {
   var loadingText = `Refresh ${seconds}`;
 
   return (
-    <div class="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[250px] mt-2 flex justify-center justify-items-center flex-col">
+    <div class="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[170px] mt-2 flex justify-center justify-items-center flex-col">
       <Paper
         component="form"
         sx={{
@@ -70,7 +70,7 @@ export default function UpperSection() {
           alignItems: "center",
           marginRight: "auto",
           marginLeft: "auto",
-          width: "60vh",
+          width: "55vh",
         }}
       >
         <Typography
@@ -109,7 +109,7 @@ export default function UpperSection() {
         </IconButton>
       </Paper>
 
-      <div className="flex justify-center justify-items-center pt-7">
+      <div className="flex justify-center justify-items-center pt-1">
         <LoadingButton
           variant="text"
           loading={loading}
