@@ -39,7 +39,6 @@ function useCountDown(endTime) {
 }
 
 export default function UpperSection() {
-  const [text, setText] = useState("");
   const endTime = new Date().getTime() + 5000;
   const [timeLeft, setEndTime] = useCountDown(endTime);
   const [loading, setLoading] = useState(false);
@@ -47,30 +46,29 @@ export default function UpperSection() {
 
   const seconds = Math.floor(timeLeft / 1000) % 60;
 
-  // const isLoadingButton = () => {
-  //   setLoading(true);
-  // };
-
-    const fetchData = async () => {
-      const result = await axios("http://localhost:3001");
-      setEmail(result.data.introduceSession.addresses[0].address);
-    };
-
-  const copy = () => {
-    navigator.clipboard.writeText(text);
+  const inputHandler = (event) => {
+    setEmail(event.target.value);
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios("http://localhost:3001");
-  //     setEmail(result.data.introduceSession.addresses[0].address);
-  //   };
+  const copy = async () => {
+    await navigator.clipboard.writeText(email);
+    alert("Text copied");
+  };
 
-  //   fetchData();
-  // }, []);
+  const fetchData = async () => {
+    const result = await axios("http://localhost:3001");
+    setEmail(result.data.introduceSession.addresses[0].address);
+
+    setLoading(true);
+    setEndTime(endTime);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  };
 
   var loadingText = `Refresh ${seconds}`;
-  console.log(email)
+  console.log(email);
 
   return (
     <div className="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[170px] mt-2 flex justify-center justify-items-center flex-col">
@@ -101,7 +99,7 @@ export default function UpperSection() {
           value={email}
           name="test"
           inputProps={{ "aria-label": "email" }}
-          onChange={(e) => setText(e.target.value)}
+          onChange={inputHandler}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <IconButton
@@ -110,7 +108,7 @@ export default function UpperSection() {
           aria-label="directions"
           onClick={copy}
         >
-          <ContentCopyIcon sx={{ color: "black" }} />
+          <ContentCopyIcon sx={{ color: "black" }} onClick={copy} />
           <Typography
             fontSize="large"
             sx={{
