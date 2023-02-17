@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -39,28 +40,40 @@ function useCountDown(endTime) {
 
 export default function UpperSection() {
   const [text, setText] = useState("");
-  const endTime = new Date().getTime() + 10000;
+  const endTime = new Date().getTime() + 5000;
   const [timeLeft, setEndTime] = useCountDown(endTime);
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState([]);
 
   const seconds = Math.floor(timeLeft / 1000) % 60;
+
+  // const isLoadingButton = () => {
+  //   setLoading(true);
+  // };
+
+    const fetchData = async () => {
+      const result = await axios("http://localhost:3001");
+      setEmail(result.data.introduceSession.addresses[0].address);
+    };
 
   const copy = () => {
     navigator.clipboard.writeText(text);
   };
 
-  const handleClick = () => {
-    setLoading(true);
-    setEndTime(endTime);
-    setTimeout(() => {
-      setLoading(false);
-    }, 10000);
-  };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios("http://localhost:3001");
+  //     setEmail(result.data.introduceSession.addresses[0].address);
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   var loadingText = `Refresh ${seconds}`;
+  console.log(email)
 
   return (
-    <div class="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[170px] mt-2 flex justify-center justify-items-center flex-col">
+    <div className="bg-slate-200 container mx-auto border-solid border-2 rounded-md min-h-[170px] mt-2 flex justify-center justify-items-center flex-col">
       <Paper
         component="form"
         sx={{
@@ -85,7 +98,7 @@ export default function UpperSection() {
         </Typography>
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="Email"
+          value={email}
           name="test"
           inputProps={{ "aria-label": "email" }}
           onChange={(e) => setText(e.target.value)}
@@ -113,9 +126,9 @@ export default function UpperSection() {
         <LoadingButton
           variant="text"
           loading={loading}
-          size="large"
+          size="medium"
           loadingIndicator={loadingText}
-          onClick={() => handleClick()}
+          onClick={() => fetchData()}
           sx={{
             minWidth: 300,
           }}
